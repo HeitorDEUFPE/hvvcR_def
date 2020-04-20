@@ -1,3 +1,11 @@
+#' descritive_numeric
+#'
+#' Receives a data.frame or tibble and returns some descriptive measures for the numeric variables in the dataset.
+#' @param data data.frame or tibble.
+#' @param export TRUE of FALSE for export results in excel arquive .xlsx. FALSE by default.
+#' @param NameExport Character with name of the excel arquive .xlsx file to be exported. By default the is DescritptiveNumeric
+#' @export
+
 descriptive_numeric <- function(data,export = FALSE,NameExport = "DescritptiveNumeric"){
   require(magrittr)
   require(dplyr)
@@ -56,3 +64,7 @@ descriptive_numeric <- function(data,export = FALSE,NameExport = "DescritptiveNu
   invisible(resu)
 
 }
+
+
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
