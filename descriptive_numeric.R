@@ -64,7 +64,3 @@ descriptive_numeric <- function(data,export = FALSE,NameExport = "DescritptiveNu
   invisible(resu)
 
 }
-
-
-git config --global user.email "you@example.com"
-git config --global user.name "Your Name"
