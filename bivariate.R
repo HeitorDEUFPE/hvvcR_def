@@ -1,19 +1,3 @@
-#' @title Make the bivariate report.
-#' @name bivariate
-#'
-#' @description Receives x (explanatory variable) and y (dependent variable) and
-#'  calculates bivariate metrics according to the types of the input variables.
-#' @param x Vector of explanatory variable.
-#' @param target Vector of dependent variable.
-#' @param targetClass Tells whether the dependent variable is numeric or binary.
-#' @param cutNum Discretize the explanotory numeric variable? TRUE by default.
-#' @param cutNumMethod Method for discretization if cutNum = TRUE. Disponible "median", "quintile" or "decile".
-#' @param labelNA Label of missing values assume. "Missing" by default.
-#' 
-#' @return Returns a tibble.
-#' @seealso descriptive_numeric, descriptive_categoric
-#' @export
-
 bivariate <- function(x,target,
                       targetClass = c("binary","numeric"),
                       cutNum = TRUE,
@@ -22,7 +6,7 @@ bivariate <- function(x,target,
   if(targetClass=="binary"){
     
     nameTarget <- as.character(names(table(target)))
-    
+
     if(class(x)%in%c("character","factor")){
       
       x <- fct_explicit_na(x,na_level = labelNA)
@@ -186,15 +170,16 @@ bivariate <- function(x,target,
       return(d)
     }
     d <- data.frame(cor = cor(x,target,use = "na.or.complete"),
-                    p.value = cor.test(x,target)$p.value,
-                    nNAy = sum(is.na(target)),
-                    pNAy = sum(is.na(target))/length(target)*100,  
-                    nNAx = sum(is.na(x)),
-                    pNAx = sum(is.na(x))/length(x)*100,
-                    npairs = sum((is.na(x)==FALSE)*(is.na(target)==FALSE))) %>% 
+                       p.value = cor.test(x,target)$p.value,
+                       nNAy = sum(is.na(target)),
+                       pNAy = sum(is.na(target))/length(target)*100,  
+                       nNAx = sum(is.na(x)),
+                       pNAx = sum(is.na(x))/length(x)*100,
+                       npairs = sum((is.na(x)==FALSE)*(is.na(target)==FALSE))) %>% 
       mutate(ppairs = npairs/length(target)*100)
     colnames(d) <- c("Correlation","Cor. p-value","N Missing target","% Missing target","N Missing x","% Missing x","N Pairs","% Pairs")
     d <- as_tibble(d)
     return(d)
   }
 }
+

@@ -4,7 +4,14 @@
 \alias{bivariate}
 \title{Make the bivariate report.}
 \usage{
-bivariate(x, target, targetClass = c("binary", "numeric"))
+bivariate(
+  x,
+  target,
+  targetClass = c("binary", "numeric"),
+  cutNum = TRUE,
+  cutNumMethod = c("median", "quintile", "decile"),
+  labelNA = "Missing"
+)
 }
 \arguments{
 \item{x}{Vector of explanatory variable.}
@@ -12,6 +19,12 @@ bivariate(x, target, targetClass = c("binary", "numeric"))
 \item{target}{Vector of dependent variable.}
 
 \item{targetClass}{Tells whether the dependent variable is numeric or binary.}
+
+\item{cutNum}{Discretize the explanotory numeric variable? TRUE by default.}
+
+\item{cutNumMethod}{Method for discretization if cutNum = TRUE. Disponible "median", "quintile" or "decile".}
+
+\item{labelNA}{Label of missing values assume. "Missing" by default.}
 }
 \value{
 Returns a tibble.
