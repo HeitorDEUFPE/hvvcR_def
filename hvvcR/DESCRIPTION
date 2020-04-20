@@ -1,0 +1,15 @@
+Package: hvvcR
+Title: The R package with the functions created and used by me.
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Heitor",
+           family = "Veiga",
+           role = c("aut", "cre"),
+           email = "heitor_hvvc@hotmail.com",
+           comment = "Use R!")
+Description: The package includes functions of routine use implemented by me to help in statistical analysis of my projetos.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Depends: R (>= 3.6.0)
+RoxygenNote: 7.0.2
