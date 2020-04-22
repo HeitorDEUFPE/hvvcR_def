@@ -9,7 +9,7 @@
 #' @param cutNum Discretize the explanotory numeric variable? TRUE by default.
 #' @param cutNumMethod Method for discretization if cutNum = TRUE. Disponible "median", "quintile" or "decile".
 #' @param labelNA Label of missing values assume. "Missing" by default.
-#' 
+#'  
 #' @return Returns a tibble.
 #' @seealso descriptive_numeric, descriptive_categoric
 #' @export
@@ -23,7 +23,7 @@ bivariate <- function(x,target,
     
     nameTarget <- as.character(names(table(target)))
     
-    if(class(x)%in%c("character","factor")){
+    if((class(x)=="character")|(class(x)=="factor")){
       
       x <- fct_explicit_na(x,na_level = labelNA)
       
@@ -73,7 +73,7 @@ bivariate <- function(x,target,
                        "X²","X² p-value","Entropy","Information Gain","K-S")
       return(d)
     }
-    if(class(x)%in%c("numeric","integer")){
+    if((class(x)=="numeric")|(class(x)=="integer")){
       if(cutNum==TRUE){
         if(cutNumMethod=="median"){
           z <- cut(x,breaks = quantile(x,probs = c(0,0.5,1),na.rm = TRUE),include.lowest = TRUE,dig.lab = 2)
@@ -162,7 +162,7 @@ bivariate <- function(x,target,
   }
   
   if(targetClass=="numeric"){
-    if(class(x)%in%c("character","factor")){
+    if((class(x)=="character")|(class(x)=="factor")){
       
       x <- fct_explicit_na(x,na_level = labelNA)
       
@@ -185,16 +185,18 @@ bivariate <- function(x,target,
                        "N Missing","% Missing","F Statistic","F p-value")
       return(d)
     }
-    d <- data.frame(cor = cor(x,target,use = "na.or.complete"),
-                    p.value = cor.test(x,target)$p.value,
-                    nNAy = sum(is.na(target)),
-                    pNAy = sum(is.na(target))/length(target)*100,  
-                    nNAx = sum(is.na(x)),
-                    pNAx = sum(is.na(x))/length(x)*100,
-                    npairs = sum((is.na(x)==FALSE)*(is.na(target)==FALSE))) %>% 
-      mutate(ppairs = npairs/length(target)*100)
-    colnames(d) <- c("Correlation","Cor. p-value","N Missing target","% Missing target","N Missing x","% Missing x","N Pairs","% Pairs")
-    d <- as_tibble(d)
-    return(d)
+    if((class(x)=="numeric")|(class(x)=="integer")){
+      d <- data.frame(cor = cor(x,target,use = "na.or.complete"),
+                      p.value = cor.test(x,target)$p.value,
+                      nNAy = sum(is.na(target)),
+                      pNAy = sum(is.na(target))/length(target)*100,  
+                      nNAx = sum(is.na(x)),
+                      pNAx = sum(is.na(x))/length(x)*100,
+                      npairs = sum((is.na(x)==FALSE)*(is.na(target)==FALSE))) %>% 
+        mutate(ppairs = npairs/length(target)*100)
+      colnames(d) <- c("Correlation","Cor. p-value","N Missing target","% Missing target","N Missing x","% Missing x","N Pairs","% Pairs")
+      d <- as_tibble(d)
+      return(d)
+    }
   }
 }

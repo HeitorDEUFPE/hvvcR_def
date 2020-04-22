@@ -7,6 +7,8 @@
 #' @param NameExport Character with name of the excel arquive .xlsx file to be exported. By default the is DescritptiveNumeric.
 #' @return Returns a tibble.
 #' @seealso descriptive_categoric
+#' 
+#' 
 #' @export
 
 descriptive_numeric <- function(data,export = FALSE,NameExport = "DescritptiveNumeric"){
